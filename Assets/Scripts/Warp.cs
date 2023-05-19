@@ -8,28 +8,32 @@ namespace FN
     public class Warp : MonoBehaviour
     {
         public string LevelName;
-        string nextSceneName;
+        private string nextSceneName;
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Character")
+            if (other.gameObject.CompareTag("Character"))
             {
                 // Get the next scene name
                 nextSceneName = LevelName; // Replace LevelName with the appropriate variable or value that represents the next scene name
+
+                // Clear the cache synchronously
+                Caching.ClearCache();
 
                 // Save the next scene name to currentstage in the game data
                 DataPersistenceManager.Instance.gameData.currentstage = nextSceneName;
 
                 // Save the updated game data
                 DataPersistenceManager.Instance.SaveGame();
-                Debug.Log("Load");
-                StartCoroutine(waitloadscene(2));
+
+                StartCoroutine(WaitAndLoadScene(2f));
             }
         }
 
-        private IEnumerator waitloadscene(float cd)
+        private IEnumerator WaitAndLoadScene(float delay)
         {
-            yield return new WaitForSeconds(cd);
+            yield return new WaitForSeconds(delay);
+
             // Load the next scene
             Debug.Log("Complete");
             SceneManager.LoadScene(nextSceneName);

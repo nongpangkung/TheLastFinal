@@ -1,6 +1,7 @@
 using FM;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
 
@@ -8,6 +9,7 @@ namespace FN
 {
     public class CharacterStatsManager : MonoBehaviour
     {
+        public GameObject DamageText;
         CharacterManager character;
 
         [Header("NAME")]
@@ -91,23 +93,40 @@ namespace FN
 
             if (isPlayer)
             {
-                Debug.Log("isPlayer");
-                float randomValue = Random.value;
+                Vector3 Offset = new Vector3(0, 2, 0);
 
-                if (randomValue < 0.5f)
+                if (DamageText != null)
                 {
-                    // No modification, damage remains the same
-                    finalDamage = finalDamage;
-                }
-                else if (randomValue < 0.75f)
-                {
-                    // Multiply damage by 1.5
-                    finalDamage = finalDamage * 1.5f;
-                }
-                else
-                {
-                    // Multiply damage by 2
-                    finalDamage = finalDamage * 2f;
+                    var go = Instantiate(DamageText, transform.position + Offset, Quaternion.identity);
+                    go.transform.LookAt(Camera.main.transform);
+                    go.transform.Rotate(0f, 180f, 0f); // Rotate the text 180 degrees around the y-axis
+                    go.transform.Translate(Vector3.right * 0.5f); // Adjust the position to the right by 0.5 units
+
+                    var textMesh = go.GetComponent<TextMeshPro>();
+
+                    float randomValue = Random.value;
+
+                    // Set the color and modify damage based on the random value
+                    if (randomValue < 0.5f)
+                    {
+                        textMesh.color = Color.white;
+                        // No modification, damage remains the same
+                        finalDamage = finalDamage;
+                    }
+                    else if (randomValue < 0.75f)
+                    {
+                        textMesh.color = Color.yellow;
+                        // Multiply damage by 1.5
+                        finalDamage = finalDamage * 1.5f;
+                    }
+                    else
+                    {
+                        textMesh.color = Color.red;
+                        // Multiply damage by 2
+                        finalDamage = finalDamage * 2f;
+                    }
+
+                    textMesh.text = finalDamage.ToString();
                 }
             }
 

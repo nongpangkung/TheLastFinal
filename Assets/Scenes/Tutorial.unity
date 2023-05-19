@@ -50444,6 +50444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8819b9938d6f23c4badd24477ad7892f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageText: {fileID: 2678543338947551326, guid: 06465382c145399459543ce23bd5c74f, type: 3}
   characterName: Nameless
   teamIDNumber: 1
   maxHealth: 0
@@ -51439,6 +51440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a12ac1b2d97d1f0489fc1686829b02fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DamageText: {fileID: 0}
   characterName: Pangkung
   teamIDNumber: 0
   maxHealth: 0
