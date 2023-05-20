@@ -11,9 +11,21 @@ namespace FN
     {
         public void Retry()
         {
+            // Clear the cache
+            Caching.ClearCache();
+
+            // Load the scene
             DataPersistenceManager.Instance.LoadGame();
             string currentSceneName = DataPersistenceManager.Instance.gameData.currentstage;
             SceneManager.LoadScene(currentSceneName);
+        }
+
+        public void mainmenu()
+        {
+            // Clear the cache
+            Caching.ClearCache();
+
+            SceneManager.LoadScene("MainMenu");
         }
     }
 }
