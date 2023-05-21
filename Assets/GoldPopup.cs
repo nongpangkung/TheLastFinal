@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using FN;
 
 public class GoldPopup : MonoBehaviour
 {
@@ -9,10 +10,15 @@ public class GoldPopup : MonoBehaviour
     public float fadeDuration = 1f;
 
     private TextMeshProUGUI textMesh;
+    private int increasedGold;
 
-    private void Start()
+    public void Initialize(int goldCount, int increasedGold)
     {
         textMesh = GetComponent<TextMeshProUGUI>();
+        textMesh.text = goldCount.ToString();
+
+        this.increasedGold = increasedGold;
+
         StartCoroutine(PopupRoutine());
     }
 
@@ -33,6 +39,14 @@ public class GoldPopup : MonoBehaviour
             yield return null;
         }
 
+        // Call the SetGoldCountText method with increasedGold parameter
+        GoldCountBar goldCountBar = FindObjectOfType<GoldCountBar>();
+        if (goldCountBar != null)
+        {
+            goldCountBar.SetGoldCountText(int.Parse(textMesh.text), increasedGold);
+        }
+
         Destroy(gameObject);
     }
 }
+

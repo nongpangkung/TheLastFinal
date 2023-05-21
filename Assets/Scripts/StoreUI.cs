@@ -178,6 +178,8 @@ public class StoreUI : MonoBehaviour
     }
     private void UpdateGoldCount()
     {
-        goldCountBar.SetGoldCountText(player.playerStatsManager.currentGoldCount); // Update the gold count in the GoldCountBar script
+        int currentGoldCount = player.playerStatsManager.currentGoldCount;
+        goldCountBar.SetGoldCountText(currentGoldCount, 0); // Pass 0 as the default value for increasedGold
     }
+
 }

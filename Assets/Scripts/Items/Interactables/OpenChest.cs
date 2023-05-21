@@ -11,7 +11,6 @@ namespace FN
         OpenChest openChest;
 
         public Transform playerStandingPosition;
-        public GameObject itemSpawner;
         public int minGold = 100;
         public int maxGold = 500;
 
@@ -37,27 +36,22 @@ namespace FN
 
             playerManager.OpenChestInteraction(playerStandingPosition);
             animator.Play("Chest Open");
-            StartCoroutine(SpawnItemInChest());
 
             int randomGold = Random.Range(minGold, maxGold + 1);
 
             if (playerStats != null)
             {
-                playerStats.AddGold(randomGold);
+                int currentGoldCount = playerStats.currentGoldCount;
+                int increasedGold = randomGold;
+
+                playerStats.AddGold(increasedGold);
 
                 if (goldCountBar != null)
                 {
-                    goldCountBar.SetGoldCountText(playerStats.currentGoldCount);
+                    goldCountBar.SetGoldCountText(currentGoldCount, increasedGold);
                 }
             }
             AudioManager.instance.Play("OpenChest");
-        }
-
-        private IEnumerator SpawnItemInChest()
-        {
-            yield return new WaitForSeconds(1f);
-            Instantiate(itemSpawner, transform);
-            Destroy(openChest);
         }
     }
 }

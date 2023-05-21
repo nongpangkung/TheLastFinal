@@ -21,11 +21,14 @@ namespace FN
 
             if (playerStats != null)
             {
-                playerStats.AddSouls(aiCharacter.aiCharacterStatsManager.soulsAwardedOnDeath);
+                int soulsAwarded = aiCharacter.aiCharacterStatsManager.soulsAwardedOnDeath;
+                playerStats.AddSouls(soulsAwarded);
 
                 if (soulCountBar != null)
                 {
-                    soulCountBar.SetSoulCountText(playerStats.currentSoulCount);
+                    int currentSoulCount = playerStats.currentSoulCount;
+                    int increasedSouls = soulsAwarded; // The increase is equal to the souls awarded
+                    soulCountBar.SetSoulCountText(currentSoulCount, increasedSouls);
                 }
             }
         }
@@ -37,11 +40,14 @@ namespace FN
 
             if (playerStats != null)
             {
-                playerStats.AddGold(aiCharacter.aiCharacterStatsManager.goldAwardedOnDeath);
+                int goldAwarded = aiCharacter.aiCharacterStatsManager.goldAwardedOnDeath;
+                playerStats.AddGold(goldAwarded);
 
                 if (goldCountBar != null)
                 {
-                    goldCountBar.SetGoldCountText(playerStats.currentGoldCount);
+                    int currentGoldCount = playerStats.currentGoldCount;
+                    int increasedGold = goldAwarded; // The increase is equal to the gold awarded
+                    goldCountBar.SetGoldCountText(currentGoldCount, increasedGold);
                 }
             }
         }

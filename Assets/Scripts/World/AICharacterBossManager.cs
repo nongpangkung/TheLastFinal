@@ -65,6 +65,7 @@ namespace FN
 
         public void Die()
         {
+            bossHealthBar.SetHealthBarToInactive();
             teleportObject.SetActive(true);
             Reward.SetActive(true);
         }
