@@ -10,7 +10,7 @@ namespace FN
     {
         public TextMeshProUGUI soulCountText;
 
-        public void SetSoulCountText(int soulCount, int increasedSouls = 0)
+        public void SetSoulCountText(int soulCount, int increasedSouls = 0, float displayDuration = 2f)
         {
             if (soulCountText == null)
             {
@@ -21,36 +21,26 @@ namespace FN
             // Calculate the new soul count with the increase
             int newSoulCount = soulCount + increasedSouls;
 
-            // Display the soul count with the increase in front of the original value
+            // Display the soul count with the increase
             string displayText = $"{newSoulCount} ({(increasedSouls >= 0 ? "+" : "")}{increasedSouls})";
             soulCountText.text = displayText;
 
-            // Fade out the increase text over time
-            StartCoroutine(FadeOutIncreaseText());
+            // Start the coroutine to fade out the increase text after the specified duration
+            StartCoroutine(FadeOutIncreaseText(displayDuration));
         }
 
-        private IEnumerator FadeOutIncreaseText()
+        private IEnumerator FadeOutIncreaseText(float duration)
         {
             if (soulCountText == null)
             {
                 yield break;
             }
 
-            const float fadeDuration = 2f;
-            float elapsedTime = 0f;
-            Color originalColor = soulCountText.color;
+            yield return new WaitForSeconds(duration);
 
-            while (elapsedTime < fadeDuration)
-            {
-                elapsedTime += Time.deltaTime;
-                float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-                soulCountText.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-                yield return null;
-            }
-
-            // Reset the text and color after fading out
-            soulCountText.text = soulCountText.text.Split(' ')[0]; // Remove the increase text from the display
-            soulCountText.color = originalColor;
+            // Reset the text to the original soul count without the increase
+            int soulCount = int.Parse(soulCountText.text.Split(' ')[0]);
+            soulCountText.text = soulCount.ToString();
         }
     }
 }

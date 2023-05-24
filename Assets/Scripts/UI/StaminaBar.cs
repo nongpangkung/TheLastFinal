@@ -31,7 +31,9 @@ namespace FN
 
         private void UpdateStaminaText()
         {
-            staminaText.text = $"{slider.value} / {slider.maxValue}";
+            int currentValue = Mathf.RoundToInt(slider.value);
+            int maxValue = Mathf.RoundToInt(slider.maxValue);
+            staminaText.text = $"{currentValue} / {maxValue}";
         }
     }
 }

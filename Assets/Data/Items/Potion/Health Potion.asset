@@ -18,7 +18,7 @@ MonoBehaviour:
   itemType: 1
   price: 50
   maxItemAmount: 100
-  currentItemAmount: 3
+  currentItemAmount: 5
   itemModel: {fileID: 185350, guid: 2ea8e07f4b2818944b602be7c9d6b288, type: 3}
   consumeAnimation: Potion_Drink
   isInteracting: 0

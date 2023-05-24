@@ -36,6 +36,7 @@ public class StoreUI : MonoBehaviour
     private void Start()
     {
         ShopItemUI(Items);
+        AudioManager.instance.Play("OpenChest");
     }
 
     GameObject firstButton;
@@ -170,6 +171,7 @@ public class StoreUI : MonoBehaviour
             Debug.Log("You have purchased " + weapon.itemName + " for " + weapon.price + " coins!");
             player.playerInventoryManager.weaponsInventory.Add(weapon);
             player.playerStatsManager.currentGoldCount -= weapon.price;
+            AudioManager.instance.Play("FogWall");
         }
         else
         {
@@ -179,7 +181,6 @@ public class StoreUI : MonoBehaviour
     private void UpdateGoldCount()
     {
         int currentGoldCount = player.playerStatsManager.currentGoldCount;
-        goldCountBar.SetGoldCountText(currentGoldCount, 0); // Pass 0 as the default value for increasedGold
+        goldCountBar.goldCountText.text = currentGoldCount.ToString(); // Update the text directly
     }
-
 }

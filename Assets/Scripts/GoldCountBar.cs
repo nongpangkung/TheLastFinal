@@ -10,7 +10,7 @@ namespace FN
     {
         public TextMeshProUGUI goldCountText;
 
-        public void SetGoldCountText(int goldCount, int increasedGold = 0)
+        public void SetGoldCountText(int goldCount, int increasedGold = 0, float displayDuration = 2f)
         {
             if (goldCountText == null)
             {
@@ -21,37 +21,26 @@ namespace FN
             // Calculate the new gold count with the increase
             int newGoldCount = goldCount + increasedGold;
 
-            // Display the gold count with the increase in front of the original value
+            // Display the gold count with the increase
             string displayText = $"{newGoldCount} ({(increasedGold >= 0 ? "+" : "")}{increasedGold})";
             goldCountText.text = displayText;
 
-            // Fade out the increase text over time
-            StartCoroutine(FadeOutIncreaseText());
+            // Start the coroutine to fade out the increase text after the specified duration
+            StartCoroutine(FadeOutIncreaseText(displayDuration));
         }
 
-        private IEnumerator FadeOutIncreaseText()
+        private IEnumerator FadeOutIncreaseText(float duration)
         {
             if (goldCountText == null)
             {
                 yield break;
             }
 
-            const float fadeDuration = 2f;
-            float elapsedTime = 0f;
-            Color originalColor = goldCountText.color;
+            yield return new WaitForSeconds(duration);
 
-            while (elapsedTime < fadeDuration)
-            {
-                elapsedTime += Time.deltaTime;
-                float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
-                goldCountText.color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
-                yield return null;
-            }
-
-            // Reset the text and color after fading out
-            goldCountText.text = goldCountText.text.Split(' ')[0]; // Remove the increase text from the display
-            goldCountText.color = originalColor;
+            // Reset the text to the original gold count without the increase
+            int goldCount = int.Parse(goldCountText.text.Split(' ')[0]);
+            goldCountText.text = goldCount.ToString();
         }
-
     }
 }

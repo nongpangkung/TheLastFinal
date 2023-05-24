@@ -18,6 +18,7 @@ namespace FN
 
         public GameObject cutscenePanel;
         public Button skipButton;
+        public GameObject creditPanel;
         bool cutsceneSkipped = false;
 
         private void Start ()
@@ -80,6 +81,16 @@ namespace FN
         public void ClickQuitGame()
         {
             Application.Quit();
+        }
+
+        public void Credits()
+        {
+            creditPanel.SetActive(true);
+        }
+
+        public void CloseCredits()
+        {
+            creditPanel.SetActive(false);
         }
 
         private void DisableMenuButtons()
